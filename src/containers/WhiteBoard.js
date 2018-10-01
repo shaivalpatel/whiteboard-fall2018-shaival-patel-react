@@ -39,6 +39,38 @@ export default class WhiteBoard extends Component {
 
     render() {
         return (
-           
+            <div>
+
+                <Router>
+                    <div>
+
+                        <Route path="/course/table"
+                               render={(props) =>
+                                   <CourseTable
+                                       {...props}
+                                       addCourse={this.addCourse}
+                                       deleteCourse={this.deleteCourse}
+                                       deleteModule={this.deleteModule}
+                                       courses={this.state.courses}/>}/>
+                        <Route path="/course/grid"
+                               render={(props)=>
+                               <CourseGrid
+                                   {...props}
+                                   addCourse={this.addCourse}
+                                   deleteCourse={this.deleteCourse}
+                                   deleteModule={this.deleteModule}
+                                   courses={this.state.courses}/>}/>
+                        <Route
+                            exact
+                            render={(props) =>
+                                <CourseEditor
+                                    {...props}
+                                    deleteModule={this.deleteModule}
+                                    courses={this.state.courses}/>}
+                            path="/course/:courseId/edit"/>
+                    </div>
+                </Router>
+            </div>
+        );
     }
 }
