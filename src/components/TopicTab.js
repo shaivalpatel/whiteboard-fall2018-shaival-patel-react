@@ -2,7 +2,7 @@ import React from 'react'
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 
 const TopicTab = ({topic, selectTopic, selected,deleteTopic,getTopicName,}) =>
-    <li className="nav-item">
+    <li onClick={()=>selectTopic(topic)} className={(selected ? 'nav-item active': 'nav-item')}>
         <a onClick={() => selectTopic(topic)}
            className={selected ? "nav-link active" : "nav-link"}>
             {topic.title}
