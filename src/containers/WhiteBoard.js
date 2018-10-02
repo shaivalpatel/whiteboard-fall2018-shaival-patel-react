@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import CourseCard from "../components/CourseCard";
 import ModuleList3 from "../components/ModuleList3";
-import CourseGrid from "../components/CourseGrid";
-import CourseTable from "../components/CourseTable";
+import CourseGrid from "./CourseGrid";
+import CourseTable from "./CourseTable";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import CourseService from "../services/CourseService";
-import CourseEditor from "../components/CourseEditor";
+import CourseEditor from "./CourseEditor";
 
 export default class WhiteBoard extends Component {
 
@@ -23,19 +23,61 @@ export default class WhiteBoard extends Component {
         })
     }
 
+    findCourseById = course =>{
+        console.log(this.courseService.findCourseById(course.id))
+
+    }
+
+
+
     deleteCourse = courseToDelete => {
+
+        console.log("in megtod");
+        this.findCourseById(courseToDelete);
+        console.log("hio");
         this.courseService.deleteCourse(courseToDelete.id)
+
+        this.findAllCourses()
         this.setState({
             courses: this.courseService.findAllCourses()
         })
     }
 
+    findAllCourses()  {
+        this.setState({
+            courses: this.courseService.findAllCourses()
+        });
+        this.state.courses
+}
+
     deleteModule = module =>{
+        this.courseService.findAllCourses()
         this.courseService.deleteModule(module)
         this.setState({
             courses: this.courseService.findAllCourses()
         })
+        this.findAllCourses()
     }
+
+    deleteTopic = topic =>{
+        this.courseService.findAllCourses()
+        this.courseService.deleteTopic(topic)
+        this.setState({
+            courses: this.courseService.findAllCourses()
+        })
+        this.findAllCourses()
+    }
+
+    deleteLesson = lesson =>{
+        this.courseService.findAllCourses()
+        this.courseService.deleteLesson(lesson)
+        this.setState({
+            courses: this.courseService.findAllCourses()
+        })
+        this.findAllCourses()
+    }
+
+
 
     render() {
         return (
@@ -66,8 +108,11 @@ export default class WhiteBoard extends Component {
                                 <CourseEditor
                                     {...props}
                                     deleteModule={this.deleteModule}
+                                    deleteTopic={this.deleteTopic}
+                                    deleteLesson={this.deleteLesson}
                                     courses={this.state.courses}/>}
                             path="/course/:courseId/edit"/>
+
                     </div>
                 </Router>
             </div>
