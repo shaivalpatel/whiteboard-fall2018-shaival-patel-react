@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ModuleList3 from "../components/ModuleList3";
+import ModuleList from "../components/ModuleList";
 import {Route} from 'react-router-dom'
 import LessonTabs from "../components/LessonTabs";
 import CourseEditorNavbar from "../components/CourseEditorNavbar";
@@ -34,10 +34,10 @@ export default class CourseEditor extends Component {
         this.state = {
             newLesson:[
                 {
-                title:'',
+                title:'New Lesson',
                 topics:[]}
             ],
-            newTopic:'',
+            newTopic:'New Topic',
             topics:selectedLesson.topics,
             lessons:selectedModule.lessons,
             course: course,
@@ -103,7 +103,8 @@ export default class CourseEditor extends Component {
 
     selectLesson = lesson =>
         this.setState({
-            selectedLesson: lesson
+            selectedLesson: lesson,
+            selectedTopic: lesson.topics[0]
         })
 
     selectTopic = topic =>
@@ -113,27 +114,11 @@ export default class CourseEditor extends Component {
 
 
     selectModule = module => {
-        console.log(module.lessons[0])
-        if(module.lessons[0].hasOwnProperty("topics")) {
-            this.setState({
-                selectedModule: module,
-                selectedLesson: module.lessons[0],
-                selectedTopic: module.lessons[0].topics[0]
-
-            })
-        }
-        else{
-            this.setState({
-                selectedModule: module,
-                selectedLesson: module.lessons[0],
-                selectedTopic: []
-
-            })
-        }
-
-        console.log(module.lessons[0])
+        this.setState({
+            selectedModule: module,
+            selectedLesson: module.lessons[0]
+        })
     }
-
     deleteTopic = topic => {
 
         this.courseService.findAllCourses();
@@ -163,6 +148,7 @@ export default class CourseEditor extends Component {
         })
     }
     lessonChanged = (event) => {
+        if(event.target.value.length>0){
         this.setState({
             newLesson:
                 {
@@ -173,10 +159,27 @@ export default class CourseEditor extends Component {
 
 
 
-        })
+
+        })}
+        else{
+            this.setState({
+                newLesson:
+                    {
+                        title:'New Lesson',
+                        topics:[]
+                    }
+
+
+
+
+
+            })
+        }
     }
     addNewLesson = () => {
         let lessons = this.state.lessons;
+
+
         lessons.push( this.state.newLesson
         );
         this.setState({
@@ -202,7 +205,7 @@ export default class CourseEditor extends Component {
 
                 <div className="row">
                     <div className="col-4">
-                        <ModuleList3
+                        <ModuleList
                             selectModule={this.selectModule}
                             selectedModule={this.state.selectedModule}
                             deleteModule={this.props.deleteModule}
