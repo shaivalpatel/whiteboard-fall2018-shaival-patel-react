@@ -7,6 +7,13 @@ import TopicTabs from "../components/TopicTabs"
 import CourseService from "../services/CourseService";
 import WidgetList from "../components/WidgetList"
 
+import widgets from "../reducers/widgets"
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import WidgetListContainer from '../containers/WidgetListContainer'
+
+const store = createStore(widgets)
+
 export default class CourseEditor extends Component {
     constructor(props) {
         super(props);
@@ -229,7 +236,13 @@ export default class CourseEditor extends Component {
                             topics={this.state.selectedLesson.topics}
                             getTopicName={this.getTopicName}
                         deleteTopic={this.deleteTopic}/>
-                        <WidgetList/>
+                        <br/>
+
+                        <Provider store={store}>
+                            <WidgetListContainer
+                                topic={this.state.selectedTopic}
+                                widgetsInit={this.state.selectedTopic.widgets}/>
+                        </Provider>
                     </div>
                 </div>
             </div>
