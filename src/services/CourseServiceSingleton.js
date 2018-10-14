@@ -145,18 +145,116 @@ let courses = [
     }
 ]
 
+export default class CourseServiceSingleton {
+    static updateWidget = (forTopic, forWidget) => {
+        for(let c in courses) {
+            for(let m in courses[c].modules) {
+                for(let l in courses[c].modules[m].lessons) {
+                    for(let t in courses[c].modules[m].lessons[l].topics) {
+                        if(courses[c].modules[m].lessons[l].topics[t].id === forTopic.id) {
+                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(widget => widget.id === forWidget.id)
+                            courses[c].modules[m].lessons[l].topics[t].widgets[widgetIndex] = forWidget;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-export default class CourseService {
-    findAllCourses = () =>
-        courses;
-    createCourse = course =>
-        courses.push(course);
-    deleteCourse = courseId =>
+
+
+    static findWidgetsForTopic = forTopic => {
+        for(let c in courses) {
+            for(let m in courses[c].modules) {
+                for(let l in courses[c].modules[m].lessons) {
+                    for(let t in courses[c].modules[m].lessons[l].topics) {
+                        if(courses[c].modules[m].lessons[l].topics[t].id === forTopic.id) {
+                            return courses[c].modules[m].lessons[l].topics[t].widgets
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static createWidget = (forTopic,forWidget) =>{
+        for(let c in courses) {
+            for(let m in courses[c].modules) {
+                for(let l in courses[c].modules[m].lessons) {
+                    for(let t in courses[c].modules[m].lessons[l].topics) {
+                            if (courses[c].modules[m].lessons[l].topics[t].id ==forTopic.id){
+
+                                 courses[c].modules[m].lessons[l].topics[t].widgets.push(forWidget);
+                                console.log(courses)
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+    static moveUp = (forTopic,forwidget,forindex)=>{
+        for(let c in courses) {
+            for(let m in courses[c].modules) {
+                for(let l in courses[c].modules[m].lessons) {
+                    for(let t in courses[c].modules[m].lessons[l].topics) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id ==forTopic.id){
+
+                            if(forindex>0){
+
+                            let temp =courses[c].modules[m].lessons[l].topics[t].widgets[forindex]
+                            courses[c].modules[m].lessons[l].topics[t].widgets[forindex] = courses[c].modules[m].lessons[l].topics[t].widgets[forindex-1]
+                            courses[c].modules[m].lessons[l].topics[t].widgets[forindex-1] = temp}
+                        }
+                    }
+                }
+            }
+        }}
+
+        static moveDown = (forTopic,forwidget,forindex)=>{
+            for(let c in courses) {
+                for(let m in courses[c].modules) {
+                    for(let l in courses[c].modules[m].lessons) {
+                        for(let t in courses[c].modules[m].lessons[l].topics) {
+                            if (courses[c].modules[m].lessons[l].topics[t].id ==forTopic.id){
+
+                                let temp =courses[c].modules[m].lessons[l].topics[t].widgets[forindex]
+                                courses[c].modules[m].lessons[l].topics[t].widgets[forindex] = courses[c].modules[m].lessons[l].topics[t].widgets[forindex+1]
+                                courses[c].modules[m].lessons[l].topics[t].widgets[forindex+1] = temp
+                            }
+                        }
+                    }
+                }
+            }
+
+    }
+
+
+    static findWidget = (forID) => {
+        for(let c in courses) {
+            for(let m in courses[c].modules) {
+                for(let l in courses[c].modules[m].lessons) {
+                    for(let t in courses[c].modules[m].lessons[l].topics) {
+                           for (let w in courses[c].modules[m].lessons[l].topics[t].widgets){
+                               if (courses[c].modules[m].lessons[l].topics[t].widgets[w].id ==forID){
+                                   return courses[c].modules[m].lessons[l].topics[t].widgets[w];
+                               }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static findAllCourses = () =>
+        courses
+    static createCourse = course =>
+        courses.push(course)
+    static deleteCourse = courseId =>
         courses = courses.filter(
             course => course.id !== courseId
         )
-    deleteModule = (moduleToDelete  ) => {
-        console.log("moduke")
+    static deleteModule = moduleToDelete => {
         courses = courses.map(course => {
             course.modules = course.modules.filter(
                 module => module !== moduleToDelete
@@ -164,56 +262,18 @@ export default class CourseService {
             return course;
         })
     }
-
-    deleteTopic = (lessonToDelete) =>
-    {
-        console.log(courses[0].modules);
-        courses= courses.map( course=> { course.modules.map(
-            module=>{
-                module.lessons.map(lesson=>{
-                    lesson.topics = lesson.topics.filter(topic=> topic != lessonToDelete)
-                })
+    static deleteWidget = (forTopic, forWidget) => {
+        for(let c in courses) {
+            for(let m in courses[c].modules) {
+                for(let l in courses[c].modules[m].lessons) {
+                    for(let t in courses[c].modules[m].lessons[l].topics) {
+                        if(courses[c].modules[m].lessons[l].topics[t].id === forTopic.id) {
+                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(widget => widget.id === forWidget.id)
+                            courses[c].modules[m].lessons[l].topics[t].widgets.splice(widgetIndex, 1)
+                        }
+                    }
+                }
             }
-        );
-            return course;
-
-        })
-    };
-
-    deleteLesson = (lessonToDelete) =>
-    {
-
-        courses= courses.map( course=> { course.modules.map(
-            module=>{
-                module.lessons = module.lessons.filter (lesson => lesson != lessonToDelete)
-                });
-            return course;
-            }
-        )
-
-
-
-    };
-    findCourseById(courseId) {
-        courses = courses.filter(
-                course =>  course.id == courseId
-            );
-            return courses;
-
-    }
-    updateCourse(course,courseId){
-        this.deleteCourse(courseId);
-        courses.push(course);
-    }
-
-    selectModule = (selectedModule, moduleTitle  ) => {
-
-        console.log("moduke")
-        courses = courses.map(course => {
-            course.modules = course.modules.filter(
-                module => module !== selectedModule
-            )
-            return course;
-        })
+        }
     }
 }
