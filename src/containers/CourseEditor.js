@@ -44,6 +44,7 @@ export default class CourseEditor extends Component {
                 title:'New Lesson',
                 topics:[]}
             ],
+            preview:false,
             newTopic:'New Topic',
             topics:selectedLesson.topics,
             lessons:selectedModule.lessons,
@@ -240,6 +241,7 @@ export default class CourseEditor extends Component {
 
                         <Provider store={store}>
                             <WidgetListContainer
+                                preview={this.state.preview}
                                 topic={this.state.selectedTopic}
                                 widgetsInit={this.state.selectedTopic.widgets}/>
                         </Provider>

@@ -10,6 +10,8 @@ import CourseEditor from "./CourseEditor";
 export default class WhiteBoard extends Component {
 
     constructor(props) {
+
+
         super(props);
         this.courseService = new CourseService();
         this.state = {
