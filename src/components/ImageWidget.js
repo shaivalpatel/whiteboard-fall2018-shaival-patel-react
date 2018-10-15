@@ -20,7 +20,7 @@ const ImageWidget = ({preview,widget,updateWidget}) => {
                         updateWidget(widget);}} type="text" placeholder="Widget Name" className="form-control"/>
                 </div>
                 <div>
-                    <h3>Preview</h3>
+                    <h3 hidden={preview}>Preview</h3>
                     <img src={widget.link}/>
                 </div>
             </div>
