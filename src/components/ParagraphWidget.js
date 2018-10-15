@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ParagraphWidget = ({widget, updateWidget}) => {
+const ParagraphWidget = ({preview,widget, updateWidget}) => {
 
     return(
         <div>

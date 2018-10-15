@@ -2,7 +2,7 @@ import React from 'react'
 import TopicTab from "./TopicTab";
 
 const TopicTabs = ({topics, selectTopic, selectedTopic,deleteTopic,getTopicName ,topicChanged,addNewTopic}) =>
-    <ul className="nav nav-tabs">
+    <ul className="nav nav-tabs ">
 
         {
             topics.map((topic, index) =>
@@ -19,7 +19,7 @@ const TopicTabs = ({topics, selectTopic, selectedTopic,deleteTopic,getTopicName 
         }
         <li>
             <input onChange={topicChanged} className="form-control"/>
-            <button onClick={addNewTopic} className="btn btn-primary">Add</button>
+            <button onClick={addNewTopic} className="btn btn-primary form-inline">Add</button>
         </li>
     </ul>
 

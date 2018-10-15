@@ -18,6 +18,7 @@ let courses = [
                                         title: 'list 1',
                                         type: 'LIST',
                                         size:1,
+                                        link:'',
                                         options:'unordered',
                                         listitems: 'option 1\noption 2\noption 3',
                                         text:"he"
@@ -35,8 +36,11 @@ let courses = [
                                     {
                                         id: '123',
                                         title: 'widget 1',
+                                        link:'',
                                         type: 'HEADING',
                                         size: 1,
+                                        options:'unordered',
+                                        listitems: 'option 1\noption 2\noption 3',
                                         text: 'Heading 1'
 
                                     },
@@ -45,6 +49,9 @@ let courses = [
                                         title: 'widget 2',
                                         type: 'HEADING',
                                         size: 2,
+                                        link:'',
+                                        options:'unordered',
+                                        listitems: 'option 1\noption 2\noption 3',
                                         text: 'Heading 2'
 
                                     },
@@ -53,6 +60,9 @@ let courses = [
                                         title: 'widget 3',
                                         type: 'HEADING',
                                         size: 3,
+                                        link:'',
+                                        options:'unordered',
+                                        listitems: 'option 1\noption 2\noption 3',
                                         text: 'Heading 3'
 
                                     }
@@ -66,14 +76,19 @@ let courses = [
                                         id: '456',
                                         title: 'list 1',
                                         type: 'LIST',
-                                        options: 'option 1\noption 2\noption 3'
+                                        link:'',
+                                        options:'unordered',
+                                        listitems: 'option 1\noption 2\noption 3',
                                     },
                                     {
                                         id: '123',
                                         title: 'widget 1',
                                         type: 'HEADING',
                                         size: 1,
-                                        text: 'Heading 1'
+                                        text: 'Heading 1',
+                                        link:'',
+                                        options:'unordered',
+                                        listitems: 'option 1\noption 2\noption 3',
 
                                     },
                                     {
@@ -81,7 +96,10 @@ let courses = [
                                         title: 'widget 2',
                                         type: 'HEADING',
                                         size: 2,
-                                        text: 'Heading 2'
+                                        text: 'Heading 2',
+                                        link:'',
+                                        options:'unordered',
+                                        listitems: 'option 1\noption 2\noption 3',
 
                                     },
                                     {
@@ -89,7 +107,10 @@ let courses = [
                                         title: 'widget 3',
                                         type: 'HEADING',
                                         size: 3,
-                                        text: 'Heading 3'
+                                        text: 'Heading 3',
+                                        link:'',
+                                        options:'unordered',
+                                        listitems: 'option 1\noption 2\noption 3',
 
                                     }
                                 ]

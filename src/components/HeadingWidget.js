@@ -37,7 +37,7 @@ const HeadingWidget = ({preview,widget,updateWidget}) =>
         <input type="text" placeholder="Widget Name" className="form-control"/>
     </div>
     <div>
-        <h3>Preview</h3>
+        <h3 hidden={preview}>Preview</h3>
         {widget.size === 1 && <h1>{widget.text}</h1>}
         {widget.size === 2 && <h2>{widget.text}</h2>}
         {widget.size === 3 && <h3>{widget.text}</h3>}

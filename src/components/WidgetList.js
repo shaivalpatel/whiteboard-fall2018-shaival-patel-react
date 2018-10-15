@@ -15,14 +15,14 @@ class WidgetList extends React.Component {
         super(props);
         let c;
         const isLoggedIn = this.props.widgets.length==1;
-        props.init(props.widgetsInit, props.topic)
+        props.init(props.widgetsInit, props.topic , props.preview)
 
 
     }
 
     componentDidUpdate() {
 
-        this.props.init(this.props.widgetsInit, this.props.topic)
+        this.props.init(this.props.widgetsInit, this.props.topic, this.props.preview)
     }
     render() {
 
@@ -32,20 +32,23 @@ class WidgetList extends React.Component {
             title: 'list 1',
             type: 'HEADING',
             size:1,
-            text:"hello"
+            text:"hello",
+            link:'',
+            options:'unordered',
+            lisitems:''
 
         };
         return(
             <div >
                 <div className="row">
-                    <div className="col-sm-8 ">
-                        &nbsp
+                    <div className="col-sm-1 mb-1">
                     </div>
-                    <div className="col-sm-4">
-                        <div className="float-right">
-                            <button onClick={this.props.saveWidget} className="btn btn-success ">Save</button>
-                            Preview
-                            <ToggleButton value={this.props.preview}
+                    <div className="col-sm-11 float-right mb-1">
+                        <div className="float-right row">
+                            <button onClick={this.props.saveWidget}
+                                    className="btn  btn-success ml-1 mr-1">Save</button>
+                            <h6 className="form-inline">Preview</h6>
+                            <ToggleButton className="ml-1 form-inline"value={this.props.preview}
                                           onToggle={this.props.changePreview}/>
 
                         </div>
@@ -58,9 +61,16 @@ class WidgetList extends React.Component {
                         <li key={index}
                             className="list-group-item">
                             {}
-                            <button hidden={(index==0)} onClick={()=>this.props.moveUp(widget,index)} className="btn bg-warning arrowbtn float-right"><i className="fa fa-arrow-up"></i></button>
-                            <button hidden={index==this.props.widgets.length-1} onClick={()=>this.props.moveDown(widget,index)}className="btn bg-warning arrowbtn float-right"><i className="fa fa-arrow-down"></i></button>
-                            <select className="float-right"
+                            <button hidden={(index==0)} onClick={()=>this.props.moveUp(widget,index)}
+                                    className="btn bg-warning arrowbtn float-right ml-1">
+                                <i className="fa fa-arrow-up"></i>
+                            </button>
+                            <button hidden={index==this.props.widgets.length-1}
+                                    onClick={()=>this.props.moveDown(widget,index)}
+                                    className="btn ml-1 bg-warning arrowbtn float-right">
+                                <i className="fa fa-arrow-down"></i>
+                            </button>
+                            <select className="float-right ml-1"
                                     onChange={(event)=>
                                                 {widget.type=event.target.value;
                                                 this.props.updateWidget(widget);}}
@@ -73,22 +83,29 @@ class WidgetList extends React.Component {
                                 <option  value="LINK">Link</option>
                             </select>
                             <button onClick={() => this.props.deleteWidget(widget)}
-                                    className="btn btn-danger float-right"><i className="fa fa-times"></i></button>
+                                    className="btn btn-danger float-right">
+                                <i className="fa fa-times"></i>
+                            </button>
 
                             {widget.type === 'LIST' &&
-                            <ListWidget preview={this.props.preview} widget={widget}
+                            <ListWidget preview={this.props.preview}
+                                        widget={widget}
                                         updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'HEADING' &&
-                            <HeadingWidget preview={this.props.preview} widget={widget}
+                            <HeadingWidget preview={this.props.preview}
+                                           widget={widget}
                                            updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'LINK' &&
-                            <LinkWidget preview={this.props.preview} widget={widget}
+                            <LinkWidget preview={this.props.preview}
+                                        widget={widget}
                                            updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'PARAGRAPH' &&
-                            <ParagraphWidget preview={this.props.preview} widget={widget}
+                            <ParagraphWidget preview={this.props.preview}
+                                             widget={widget}
                                         updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'IMAGE' &&
-                            <ImageWidget preview={this.props.preview} widget={widget}
+                            <ImageWidget preview={this.props.preview}
+                                         widget={widget}
                                              updateWidget={this.props.updateWidget}/>}
 
 
@@ -98,7 +115,7 @@ class WidgetList extends React.Component {
                 }
             </ul>
                 <div className="text-danger float-right">
-                <button onClick={()=>this.props.createWidget(defaultwidget)} >
+                <button className="btn btn-primary mt-1" onClick={()=>this.props.createWidget(defaultwidget)} >
                    Add
                 </button>
             </div>

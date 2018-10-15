@@ -4,7 +4,7 @@ const ImageWidget = ({preview,widget,updateWidget}) => {
 
     return(
         <div>
-            <h1>{widget.title}</h1>
+            <h1 hidden={preview}>{widget.title}</h1>
 
             <div>
                 <div hidden={preview} className="form-group row">
