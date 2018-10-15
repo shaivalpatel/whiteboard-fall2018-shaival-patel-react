@@ -7,12 +7,12 @@ import TopicTabs from "../components/TopicTabs"
 import CourseService from "../services/CourseService";
 import WidgetList from "../components/WidgetList"
 
-import widgets from "../reducers/widgets"
+import widgetReducer from "../reducers/WidgetReducer"
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import WidgetListContainer from '../containers/WidgetListContainer'
 
-const store = createStore(widgets)
+const store = createStore(widgetReducer)
 
 export default class CourseEditor extends Component {
     constructor(props) {

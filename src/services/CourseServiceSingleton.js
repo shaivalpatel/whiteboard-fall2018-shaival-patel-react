@@ -163,7 +163,7 @@ export default class CourseServiceSingleton {
 
 
 
-    static findWidgetsForTopic = forTopic => {
+    static findAllWidgetsForTopic = forTopic => {
         for(let c in courses) {
             for(let m in courses[c].modules) {
                 for(let l in courses[c].modules[m].lessons) {

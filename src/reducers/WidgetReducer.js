@@ -1,18 +1,24 @@
 import CourseServiceSingleton from '../services/CourseServiceSingleton'
 
-const widgets = (state = {widgets:[], preview:false}, action) => {
+const widgetReducer = (state = {widgets:[], preview:false}, action) => {
 
     switch (action.type) {
         case "INIT":
             return {
-                widgets: CourseServiceSingleton.findWidgetsForTopic(action.topic),
+                widgets: CourseServiceSingleton.findAllWidgetsForTopic(action.topic),
                 preview:state.preview,
                 selectedTopic: action.topic
             };
         case "FIND_ALL_WIDGETS_FOR_TOPIC":{
             return {
-                widgets: CourseServiceSingleton.findWidgetsForTopic(action.topic),
+                widgets: CourseServiceSingleton.findAllWidgetsForTopic(action.topic),
                 selectedTopic: action.topic
+            }
+        }
+
+        case "FIND_ALL_WIDGETS":{
+            return{
+                widgets:CourseServiceSingleton.findAllWidgetsForTopic()
             }
         }
 
@@ -20,7 +26,7 @@ const widgets = (state = {widgets:[], preview:false}, action) => {
 
             CourseServiceSingleton.createWidget(state.selectedTopic,action.widget);
             return{
-                widgets:CourseServiceSingleton.findWidgetsForTopic(state.selectedTopic).slice(0),
+                widgets:CourseServiceSingleton.findAllWidgetsForTopic(state.selectedTopic).slice(0),
                 selectedTopic:state.selectedTopic
 
             }
@@ -40,7 +46,7 @@ const widgets = (state = {widgets:[], preview:false}, action) => {
 
             CourseServiceSingleton.moveUp(state.selectedTopic, action.widget, action.index);
            return {
-                widgets:CourseServiceSingleton.findWidgetsForTopic(state.selectedTopic).slice(0),
+                widgets:CourseServiceSingleton.findAllWidgetsForTopic(state.selectedTopic).slice(0),
                selectedTopic:state.selectedTopic
            }
         }
@@ -49,7 +55,7 @@ const widgets = (state = {widgets:[], preview:false}, action) => {
 
             CourseServiceSingleton.moveDown(state.selectedTopic, action.widget, action.index);
             return {
-                widgets:CourseServiceSingleton.findWidgetsForTopic(state.selectedTopic).slice(0),
+                widgets:CourseServiceSingleton.findAllWidgetsForTopic(state.selectedTopic).slice(0),
                 selectedTopic:state.selectedTopic
             }
         }
@@ -63,7 +69,7 @@ const widgets = (state = {widgets:[], preview:false}, action) => {
 
         case "DELETE_WIDGET":
             CourseServiceSingleton.deleteWidget(state.selectedTopic, action.widget);
-            const newWidgets = CourseServiceSingleton.findWidgetsForTopic(state.selectedTopic);
+            const newWidgets = CourseServiceSingleton.findAllWidgetsForTopic(state.selectedTopic);
             return {
                 widgets: newWidgets.slice(0),
                 selectedTopic: state.selectedTopic
@@ -71,7 +77,7 @@ const widgets = (state = {widgets:[], preview:false}, action) => {
         case "UPDATE_WIDGET":
             CourseServiceSingleton.updateWidget(state.selectedTopic, action.widget);
             return {
-                widgets: CourseServiceSingleton.findWidgetsForTopic(state.selectedTopic).slice(0),
+                widgets: CourseServiceSingleton.findAllWidgetsForTopic(state.selectedTopic).slice(0),
                 selectedTopic: state.selectedTopic
             };
 
@@ -80,4 +86,4 @@ const widgets = (state = {widgets:[], preview:false}, action) => {
     }
 };
 
-export default widgets
+export default widgetReducer
