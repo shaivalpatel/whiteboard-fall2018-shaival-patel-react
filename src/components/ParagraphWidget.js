@@ -7,12 +7,14 @@ const ParagraphWidget = ({preview,widget, updateWidget}) => {
             <h1 hidden={preview}>{widget.title}</h1>
             <div>
                 <div hidden={preview} className="form-group row">
-                    <textarea onChange={(event)=>
+                    <label htmlFor="ParagraphText">Paragraph Text</label>
+                    <textarea  id ="ParagraphText"onChange={(event)=>
                     {widget.text=event.target.value;
-                        updateWidget(widget);}}type="text" placeholder="Lorem ispsum" className="form-control"></textarea>
+                        updateWidget(widget);}}type="text" placeholder="Paragraph Text" className="form-control"></textarea>
                 </div>
                 <div hidden={preview} className="form-group row">
-                    <input onChange={(event)=>
+                    <label htmlFor="ParagraphTitle">Widget Title</label>
+                    <input id= "ParagraphTitle " onChange={(event)=>
                     {widget.title=event.target.value;
                         updateWidget(widget);}}type="text" placeholder="Widget Name" className="form-control"/>
                 </div>

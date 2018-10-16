@@ -13,12 +13,14 @@ const HeadingWidget = ({preview,widget,updateWidget}) =>
 </div>
 <div>
     <div hidden={preview}className="form-group row">
-        <input onChange={(event)=>
+        <label htmlFor="HeadingText" >Enter Text</label>
+        <input id ="HeadingText" onChange={(event)=>
         {widget.text=event.target.value;
             updateWidget(widget);}}  type="text" placeholder="Heading Text" className="form-control"/>
     </div>
     <div hidden={preview}className="form-group row">
-        <select className="form-control"
+        <label for="HeadingSize">Select Size</label>
+        <select id="HeadingSize" className="form-control"
                 onChange={(event)=>
                 {widget.size=parseInt(event.target.value);
                     updateWidget(widget);console.log((event.target.value))}}
@@ -31,10 +33,12 @@ const HeadingWidget = ({preview,widget,updateWidget}) =>
             <option value="6">Heading 6</option>
         </select>
     </div>
+
     <div hidden={preview} onChange={(event)=>
     {widget.title=event.target.value;
         updateWidget(widget);}}className="form-group row">
-        <input type="text" placeholder="Widget Name" className="form-control"/>
+        <label htmlFor="HeadingTitle">Widget Title</label>
+        <input id ="HeadingTitle"type="text" placeholder="Widget Name" className="form-control"/>
     </div>
     <div>
         <h3 hidden={preview}>Preview</h3>

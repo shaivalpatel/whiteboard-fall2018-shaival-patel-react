@@ -4,80 +4,84 @@ import ModuleList from "../components/ModuleList";
 import CourseGrid from "./CourseGrid";
 import CourseTable from "./CourseTable";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import CourseService from "../services/CourseService";
-import CourseEditor from "./CourseEditor";
 
+import CourseEditor from "./CourseEditor";
+import CourseServiceSingleton from "../services/CourseServiceSingleton";
 export default class WhiteBoard extends Component {
 
     constructor(props) {
 
 
         super(props);
-        this.courseService = new CourseService();
+
         this.state = {
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         }
+        console.log(this.courses)
     }
+
+
     addCourse = newCourse => {
-        this.courseService.createCourse(newCourse)
+        CourseServiceSingleton.createCourse(newCourse);
+
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         })
-    }
+    };
 
-    findCourseById = course =>{
-        console.log(this.courseService.findCourseById(course.id))
+    findCourseById = (course) =>{
+        console.log(CourseServiceSingleton.findCourseById(course.id))
 
-    }
+    };
 
 
 
     deleteCourse = courseToDelete => {
+        CourseServiceSingleton.findCourseById(courseToDelete);
+        CourseServiceSingleton.deleteCourse(courseToDelete.id);
+        this.findAllCourses();
 
-        console.log("in megtod");
-        this.findCourseById(courseToDelete);
-        console.log("hio");
-        this.courseService.deleteCourse(courseToDelete.id)
-
-        this.findAllCourses()
+        console.log(this.state.courses)
         this.setState({
-            courses: this.courseService.findAllCourses()
-        })
-    }
+            courses: CourseServiceSingleton.findAllCourses()
+        });
+
+    };
 
     findAllCourses()  {
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         });
         this.state.courses
+
 }
 
     deleteModule = module =>{
-        this.courseService.findAllCourses()
-        this.courseService.deleteModule(module)
+        CourseServiceSingleton.findAllCourses();
+        CourseServiceSingleton.deleteModule(module);
         this.setState({
-            courses: this.courseService.findAllCourses()
-        })
+            courses: CourseServiceSingleton.findAllCourses()
+        });
         this.findAllCourses()
-    }
+    };
 
     deleteTopic = topic =>{
-        this.courseService.findAllCourses()
-        this.courseService.deleteTopic(topic)
+        CourseServiceSingleton.findAllCourses();
+        CourseServiceSingleton.deleteTopic(topic);
         this.setState({
-            courses: this.courseService.findAllCourses()
-        })
+            courses: CourseServiceSingleton.findAllCourses()
+        });
         this.findAllCourses()
-    }
+    };
 
     deleteLesson = lesson =>{
-        this.courseService.findAllCourses()
-        this.courseService.deleteLesson(lesson)
+        CourseServiceSingleton.findAllCourses();
+        CourseServiceSingleton.deleteLesson(lesson);
         this.setState({
-            courses: this.courseService.findAllCourses()
-        })
+            courses: CourseServiceSingleton.findAllCourses()
+        });
         this.findAllCourses()
-    }
+    };
 
 
 
@@ -87,12 +91,14 @@ export default class WhiteBoard extends Component {
 
                 <Router>
                     <div>
-
+                        <Link to="/course/table">Table</Link>
+                        <Link to="/course/grid">Grid</Link>
                         <Route path="/course/table"
                                render={(props) =>
                                    <CourseTable
                                        {...props}
                                        addCourse={this.addCourse}
+                                       findAllCourses={this.findAllCourses}
                                        deleteCourse={this.deleteCourse}
                                        deleteModule={this.deleteModule}
                                        courses={this.state.courses}/>}/>

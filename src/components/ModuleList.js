@@ -1,11 +1,11 @@
 import React from 'react'
 import ModuleListItem from "./ModuleListItem";
-import CourseService from "../services/CourseService";
+import CourseServiceSingleton from "../services/CourseServiceSingleton";
 
 export default class ModuleList extends React.Component {
     constructor(props) {
         super(props);
-        this.courseService = new CourseService();
+
         this.state = {
             newModule:
                 {
@@ -32,7 +32,7 @@ export default class ModuleList extends React.Component {
     }
 
     findAllCourses() {
-        var courses = this.courseService.findAllCourses()
+        var courses = CourseServiceSingleton.findAllCourses()
 
         var self = this
 
@@ -60,10 +60,10 @@ export default class ModuleList extends React.Component {
 
     deleteModule= module =>{
 
-            this.courseService.findAllCourses()
-            this.courseService.deleteModule(module)
+            CourseServiceSingleton.findAllCourses()
+            CourseServiceSingleton.deleteModule(module)
             this.setState({
-                courses: this.courseService.findAllCourses()
+                courses: CourseServiceSingleton.findAllCourses()
             })
             this.findAllCourses()
         }
@@ -76,7 +76,7 @@ export default class ModuleList extends React.Component {
                 alert("Module name cannot be empty")
             }
             this.setState({
-                courses: this.courseService.findAllCourses()
+                courses: CourseServiceSingleton.findAllCourses()
             })
         }
 

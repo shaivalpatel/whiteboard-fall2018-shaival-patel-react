@@ -7,20 +7,25 @@ const LinkWidget = ({preview,widget, updateWidget}) => {
             <h1 hidden={preview}>{widget.title}</h1>
             <div>
                 <div hidden={preview}className="form-group row">
-                    <input onChange= {(event)=>
+                    <label htmlFor="LinkURL">Link URL</label>
+                    <input id="LinkURL" onChange= {(event)=>
                     {widget.link=event.target.value;
-                        updateWidget(widget);}}type="url" placeholder="https://www.youtube.com/" className="form-control"/>
+                        updateWidget(widget);}}type="url" placeholder="Link URL" className="form-control"/>
                 </div>
                 <div hidden={preview}className="form-group row">
-                    <input onChange= {(event)=>
+                    <label htmlFor="LinkText">Link Text</label>
+                    <input id="LinkText" onChange= {(event)=>
                     {widget.text=event.target.value;
                         updateWidget(widget);}}type="text" placeholder="Link Text" className="form-control"/>
                 </div>
-                <div hidden={preview} className="form-group row">
+
+                <div id="LinkURL2" hidden={preview} className="form-group row">
+                    <label htmlFor="LinkURL2">Link URL</label>
                     <input type="url" placeholder="https://www.youtube.com/" className="form-control"/>
                 </div>
                 <div hidden={preview} className="form-group row">
-                    <input onChange= {(event)=>
+                    <label htmlFor="LinkTitle">Widget Title</label>
+                    <input id="LinkTitle" onChange= {(event)=>
                     {widget.title=event.target.value;
                         updateWidget(widget);}} type="text" placeholder="Widget Name" className="form-control"/>
                 </div>

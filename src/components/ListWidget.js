@@ -7,7 +7,8 @@ const ListWidget = ({preview,widget, updateWidget}) => {
         <h1 hidden={preview}>{widget.title}</h1>
         <div>
             <div hidden={preview} className="form-group row">
-                                <textarea onChange={(event)=>
+                <label htmlFor="ListText">List Text</label>
+                                <textarea id="ListText" onChange={(event)=>
                                 {widget.listitems=event.target.value;
                                     updateWidget(widget);console.log(widget.options.split('\n'))}} type="text"
                                           placeholder="Put
@@ -15,7 +16,8 @@ each item
 in a new row " className="form-control"></textarea>
             </div>
             <div hidden={preview} className="form-group row">
-                <select  onChange={(event)=>
+                <label htmlFor="ListType">Type of List</label>
+                <select  id ="ListType" onChange={(event)=>
                 {widget.options=event.target.value;
                     updateWidget(widget);}}className="form-control">
                     <option value="ordered">Ordered List</option>
@@ -23,7 +25,8 @@ in a new row " className="form-control"></textarea>
                 </select>
             </div>
             <div hidden={preview} className="form-group row">
-                <input onChange={(event)=>
+                <label htmlFor="ListName">Widget Name</label>
+                <input id ="ListName"onChange={(event)=>
                 {widget.title=event.target.value;
                     updateWidget(widget);}}type="text" placeholder="Widget Name" className="form-control"/>
             </div>

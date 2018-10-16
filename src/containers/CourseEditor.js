@@ -4,14 +4,14 @@ import {Route} from 'react-router-dom'
 import LessonTabs from "../components/LessonTabs";
 import CourseEditorNavbar from "../components/CourseEditorNavbar";
 import TopicTabs from "../components/TopicTabs"
-import CourseService from "../services/CourseService";
+
 import WidgetList from "../components/WidgetList"
 
 import widgetReducer from "../reducers/WidgetReducer"
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import WidgetListContainer from '../containers/WidgetListContainer'
-
+import CourseServiceSingleton from '../services/CourseServiceSingleton'
 const store = createStore(widgetReducer)
 
 export default class CourseEditor extends Component {
@@ -23,7 +23,7 @@ export default class CourseEditor extends Component {
         // parses the URL path and names the parameters and creates
         // the params map
         const courseId = this.props.match.params.courseId;
-        this.courseService = new CourseService();
+
         // use courseId to find the course object from the
         // courses array passed in as a property
         const course = this.props.courses.find(
@@ -68,7 +68,7 @@ export default class CourseEditor extends Component {
     }
 
     findAllCourses() {
-        var courses = this.courseService.findAllCourses()
+        var courses = CourseServiceSingleton.findAllCourses()
 
         var self = this
 
@@ -91,7 +91,7 @@ export default class CourseEditor extends Component {
             alert("Lesson name cannot be empty")
         }
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         })
     }
 
@@ -104,7 +104,7 @@ export default class CourseEditor extends Component {
             alert("Topic name cannot be empty")
         }
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         })
     }
 
@@ -129,20 +129,20 @@ export default class CourseEditor extends Component {
     }
     deleteTopic = topic => {
 
-        this.courseService.findAllCourses();
-        this.courseService.deleteTopic(topic)
+        CourseServiceSingleton.findAllCourses();
+        CourseServiceSingleton.deleteTopic(topic)
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         })
         this.findAllCourses()
     }
 
     deleteLesson = lesson => {
 
-        this.courseService.findAllCourses();
-        this.courseService.deleteLesson(lesson)
+        CourseServiceSingleton.findAllCourses();
+        CourseServiceSingleton.deleteLesson(lesson)
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses:CourseServiceSingleton.findAllCourses()
         })
         this.findAllCourses()
     }

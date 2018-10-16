@@ -59,8 +59,9 @@ class WidgetList extends React.Component {
 
                     this.props.widgets.map((widget, index) =>
                         <li key={index}
+
                             className="list-group-item">
-                            {}
+
                             <button hidden={(index==0)} onClick={()=>this.props.moveUp(widget,index)}
                                     className="btn bg-warning arrowbtn float-right ml-1">
                                 <i className="fa fa-arrow-up"></i>
@@ -88,23 +89,23 @@ class WidgetList extends React.Component {
                             </button>
 
                             {widget.type === 'LIST' &&
-                            <ListWidget preview={this.props.preview}
+                            <ListWidget name={widget.type} preview={this.props.preview}
                                         widget={widget}
                                         updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'HEADING' &&
-                            <HeadingWidget preview={this.props.preview}
+                            <HeadingWidget name={widget.type} preview={this.props.preview}
                                            widget={widget}
                                            updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'LINK' &&
-                            <LinkWidget preview={this.props.preview}
+                            <LinkWidget  name={widget.type} preview={this.props.preview}
                                         widget={widget}
                                            updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'PARAGRAPH' &&
-                            <ParagraphWidget preview={this.props.preview}
+                            <ParagraphWidget name={widget.type} preview={this.props.preview}
                                              widget={widget}
                                         updateWidget={this.props.updateWidget}/>}
                             {widget.type === 'IMAGE' &&
-                            <ImageWidget preview={this.props.preview}
+                            <ImageWidget name={widget.type} preview={this.props.preview}
                                          widget={widget}
                                              updateWidget={this.props.updateWidget}/>}
 

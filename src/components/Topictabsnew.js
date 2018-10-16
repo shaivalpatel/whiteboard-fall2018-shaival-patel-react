@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import CourseService from "../services/CourseService";
+import CourseServiceSingleton from "../services/CourseServiceSingleton";
 import TopicTab from "./TopicTab";
 
 export default class Topictabsnew extends Component {
     constructor(props) {
         super(props);
-        this.courseService = new CourseService();
+
         this.state = {
             newTopic:
                 {
@@ -32,7 +32,7 @@ export default class Topictabsnew extends Component {
         })
     }
     findAllCourses() {
-        var courses = this.courseService.findAllCourses()
+        var courses = CourseServiceSingleton.findAllCourses()
 
         var self = this
 
@@ -62,10 +62,10 @@ export default class Topictabsnew extends Component {
 
     deleteModule= module =>{
 
-        this.courseService.findAllCourses()
-        this.courseService.deleteModule(module)
+        CourseServiceSingleton.findAllCourses()
+        CourseServiceSingleton.deleteModule(module)
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         })
         this.findAllCourses()
     }
@@ -78,7 +78,7 @@ export default class Topictabsnew extends Component {
             alert("Module name cannot be empty")
         }
         this.setState({
-            courses: this.courseService.findAllCourses()
+            courses: CourseServiceSingleton.findAllCourses()
         })
     }
 

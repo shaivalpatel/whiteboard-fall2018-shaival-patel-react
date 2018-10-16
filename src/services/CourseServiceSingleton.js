@@ -20,7 +20,7 @@ let courses = [
                                         size:1,
                                         link:'',
                                         options:'unordered',
-                                        listitems: 'option 1\noption 2\noption 3',
+                                        listitems: 'Put \n each item \n in a new row',
                                         text:"he"
                                     },
                                     {
@@ -165,8 +165,10 @@ let courses = [
         modules: []
     }
 ]
+{console.log(courses)}
 
 export default class CourseServiceSingleton {
+
     static updateWidget = (forTopic, forWidget) => {
         for(let c in courses) {
             for(let m in courses[c].modules) {
@@ -267,14 +269,20 @@ export default class CourseServiceSingleton {
         }
     }
 
-    static findAllCourses = () =>
-        courses
+    static findAllCourses = () =>{
+
+        return courses
+        }
+
     static createCourse = course =>
         courses.push(course)
-    static deleteCourse = courseId =>
+    static deleteCourse = courseId =>{
+        console.log(courses)
         courses = courses.filter(
             course => course.id !== courseId
         )
+        console.log(courses)
+    }
     static deleteModule = moduleToDelete => {
         courses = courses.map(course => {
             course.modules = course.modules.filter(
@@ -296,5 +304,58 @@ export default class CourseServiceSingleton {
                 }
             }
         }
+    }
+
+
+    static deleteTopic = (lessonToDelete) =>
+    {
+        console.log(courses[0].modules);
+        courses= courses.map( course=> { course.modules.map(
+            module=>{
+                module.lessons.map(lesson=>{
+                    lesson.topics = lesson.topics.filter(topic=> topic != lessonToDelete)
+                })
+            }
+        );
+            return course;
+
+        })
+    };
+
+    static deleteLesson = (lessonToDelete) =>
+    {
+
+        courses= courses.map( course=> { course.modules.map(
+            module=>{
+                module.lessons = module.lessons.filter (lesson => lesson != lessonToDelete)
+            });
+                return course;
+            }
+        )
+
+
+
+    };
+    static findCourseById(courseId) {
+        courses = courses.filter(
+            course =>  course.id == courseId
+        );
+        return courses;
+
+    }
+    static updateCourse(course,courseId){
+        this.deleteCourse(courseId);
+        courses.push(course);
+    }
+
+    static selectModule = (selectedModule, moduleTitle ) => {
+
+        console.log("moduke")
+        courses = courses.map(course => {
+            course.modules = course.modules.filter(
+                module => module !== selectedModule
+            )
+            return course;
+        })
     }
 }

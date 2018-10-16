@@ -3,7 +3,7 @@ import CourseRow from "../components/CourseRow";
 import CourseAdd from "../components/CourseAdd";
 import TableNavBar from "../components/TableNavBar"
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-const CourseTable = ({courses, deleteCourse, addCourse,deleteModule}) =>
+const CourseTable = ({courses, deleteCourse, addCourse,deleteModule, findAllCourses}) =>
     <div>
         <TableNavBar
         addCourse ={addCourse}/>
@@ -50,6 +50,7 @@ const CourseTable = ({courses, deleteCourse, addCourse,deleteModule}) =>
                     (<CourseRow
                         deleteCourse={deleteCourse}
                         deleteModule ={deleteModule}
+                        findAllCourses={ findAllCourses}
                         key={index}
                         course={course}
                         editCourse/>)
